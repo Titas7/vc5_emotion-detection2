@@ -1,6 +1,6 @@
 stages:
   data_ingestion:
-    cmd: python src\data_ingestion.py
+    cmd: python src\data\data_ingestion.py
     deps:
     - src\data\data_ingestion.py
     outs:
@@ -16,23 +16,26 @@ stages:
     - data\processed\test.csv
     - data\processed\train.csv
   feature_engg:
-    cmd: python src/feature/feature_engg.py
+    cmd: python src/features/feature_engg.py
     deps:
     - data/processed/test.csv
     - data/processed/train.csv
-    - src/feature/feature_engg.py
+    - src/features/feature_engg.py
     outs:
     - data/interim/test_bow.csv
     - data/interim/train_bow.csv
   modelling:
-    cmd: python src\model\modelling.py
+    cmd: python src\models\modelling.py
     deps:
     - data\interim\train_bow.csv
     - src\models\modelling.py
     outs:
     - models\random_forest_model.pkl
   model_evaluation:
-    cmd: models\random_forest.pkl -d data\interim\test_bow.csv -o 
-      reports\evaluation_metrics.json python src\models\model_evaluation.py
+    cmd: python src\models\model_evaluation.py
     deps:
+    - data\interim\test_bow.csv
+    - models\random_forest_model.pkl
     - src\models\model_evaluation.py
+    outs:
+    - reports\evaluation_metrics.json

@@ -15,10 +15,10 @@ train_data = pd.read_csv("data/processed/train.csv").dropna(subset=['content'])
 test_data = pd.read_csv("data/processed/test.csv").dropna(subset=['content'])
 
 X_train = train_data['content'].values
-y_train = train_data['label'].values
+y_train = train_data['sentiment'].values
 
 X_test = test_data['content'].values
-y_test = test_data['label'].values
+y_test = test_data['sentiment'].values
 
 # Apply Bag of Words (CountVectorizer)
 vectorizer = CountVectorizer()
@@ -31,10 +31,10 @@ X_test_bow = vectorizer.transform(X_test)
 
 # Convert the feature vectors to DataFrames for easier handling
 train_df = pd.DataFrame(X_train_bow.toarray())
-train_df['label'] = y_train
+train_df['sentiment'] = y_train
 
 test_df = pd.DataFrame(X_test_bow.toarray())
-test_df['label'] = y_test   
+test_df['sentiment'] = y_test   
 
 # Save the processed feature data to CSV files
 os.makedirs("data/interim", exist_ok=True)  # Ensure the directory exists

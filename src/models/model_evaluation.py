@@ -7,8 +7,8 @@ import json
 
 model  = pickle.load(open("models/random_forest_model.pkl", "rb"))
 test_data = pd.read_csv("data/interim/test_bow.csv")
-X_test = test_data.drop(columns=['label']).values
-y_test = test_data['label'].values  
+X_test = test_data.drop(columns=['sentiment']).values
+y_test = test_data['sentiment'].values  
 
 y_pred = model.predict(X_test)
 

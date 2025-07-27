@@ -6,8 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 
 train_data = pd.read_csv("data/interim/train_bow.csv")
 
-x_train = train_data.drop(columns=['label']).values
-y_train = train_data['label'].values
+x_train = train_data.drop(columns=['sentiment']).values
+y_train = train_data['sentiment'].values
 
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(x_train, y_train)
